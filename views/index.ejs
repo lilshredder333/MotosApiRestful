@@ -1,0 +1,27 @@
+<section class="content">
+  <h1>Scroll down!</h1>
+</section>
+<h1>All motorbikes</h1>
+<section id="main">
+  <% if (motorbikes && motorbikes.length> 0) { %> <%
+  motorbikes.forEach(motorbike=> { %>
+  <div
+    data-aos="zoom-in"
+    class="moto-container"
+    style="background-image: url('/images/<%= motorbike.image %>')"
+  >
+    <h2><%= motorbike.brand %></h2>
+
+    <div class="small-info">
+      <p>Model: <%= motorbike.model %></p>
+      <p>Year: <%= motorbike.year %></p>
+      <p>Top Speed: <%= motorbike.topSpeed %></p>
+    </div>
+    
+    <div class="overlay"></div>
+
+  </div>
+  <% }); %> <% } else { %>
+  <p>No motorbikes found.</p>
+  <% } %>
+</section>

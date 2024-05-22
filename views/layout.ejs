@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <!-- ICONS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <!-- ANIMATIONS :) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <title><%= title %></title>
+  </head>
+
+  <body>
+    <video autoplay loop muted plays-inline class="background-video">
+      <source src="/public/videos/bg-vid.mp4" type="video/mp4" />
+    </video>
+    <!-- navbar partial -->
+    <%- include('partials/navbar') %>
+    <div class="content">
+      <%- body %>
+      <!-- Placeholder for page-specific content -->
+    </div>
+    <!-- footer partial -->
+    <%- include('partials/footer') %>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
