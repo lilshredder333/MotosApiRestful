@@ -1,27 +1,8 @@
+<video autoplay loop muted plays-inline class="background-video">
+  <source src="/videos/bg-vid.mp4" type="video/mp4" />
+</video>
 <section class="content">
-  <h1>Scroll down!</h1>
-</section>
-<h1>All motorbikes</h1>
-<section id="main">
-  <% if (motorbikes && motorbikes.length> 0) { %> <%
-  motorbikes.forEach(motorbike=> { %>
-  <div
-    data-aos="zoom-in"
-    class="moto-container"
-    style="background-image: url('/images/<%= motorbike.image %>')"
-  >
-    <h2><%= motorbike.brand %></h2>
-
-    <div class="small-info">
-      <p>Model: <%= motorbike.model %></p>
-      <p>Year: <%= motorbike.year %></p>
-      <p>Top Speed: <%= motorbike.topSpeed %></p>
-    </div>
-    
-    <div class="overlay"></div>
-
-  </div>
-  <% }); %> <% } else { %>
-  <p>No motorbikes found.</p>
-  <% } %>
+  <h1 data-aos="zoom-in" data-aos-duration="1000">
+    <a href="/landing">Click here!</a>
+  </h1>
 </section>

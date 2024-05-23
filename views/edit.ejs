@@ -1,20 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Motorbike</title>
-</head>
-<body>
-    <h1>Edit Motorbike</h1>
-    <form action="/motorbikes/<%= motorbike._id %>" method="POST" enctype="multipart/form-data">
-        <!-- Include input fields for editing motorbike details -->
-        <label for="brand">Brand:</label>
-        <input type="text" id="brand" name="brand" value="<%= motorbike.brand %>"><br>
-        <!-- Add more input fields for other motorbike details -->
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image"><br>
-        <button type="submit">Update</button>
+<% if (motorbikes.length > 0) { %> <% motorbikes.forEach(motorbike => { %>
+
+    <form
+    action="/motorbikes/<%= motorbike._id %>"
+    method="POST"
+    enctype="multipart/form-data"
+    >
+    <!-- Include input fields for editing motorbike details -->
+    <label for="brand">Brand:</label>
+    <input
+        type="text"
+        id="brand"
+        name="brand"
+        value="<%= motorbike.brand %>"
+    /><br />
+    <label for="brand">Model:</label>
+    <input
+        type="text"
+        id="model"
+        name="model"
+        value="<%= motorbike.model %>"
+    /><br />
+    <label for="brand">Year:</label>
+    <input
+        type="text"
+        id="year"
+        name="year"
+        value="<%= motorbike.year %>"
+    /><br />
+    <label for="brand">Engine Type:</label>
+    <input
+        type="text"
+        id="engineType"
+        name="engineType"
+        value="<%= motorbike.engineType %>"
+    /><br />
+    <label for="brand">Horse Power:</label>
+    <input
+        type="text"
+        id="horsepower"
+        name="horsepower"
+        value="<%= motorbike.horsepower %>"
+    /><br />
+    <label for="brand">Torque:</label>
+    <input
+        type="text"
+        id="torque"
+        name="torque"
+        value="<%= motorbike.torque %>"
+    /><br />
+    <label for="brand">Weight:</label>
+    <input
+        type="text"
+        id="weight"
+        name="weight"
+        value="<%= motorbike.weight %>"
+    /><br />
+    <label for="brand">Top Speed:</label>
+    <input
+        type="text"
+        id="topSpeed"
+        name="topSpeed"
+        value="<%= motorbike.topSpeed %>"
+    /><br />
+    <label for="brand">Color:</label>
+    <input
+        type="text"
+        id="color"
+        name="color"
+        value="<%= motorbike.color %>"
+    /><br />
+    <label for="brand">Price:</label>
+    <input
+        type="text"
+        id="price"
+        name="price"
+        value="<%= motorbike.price %>"
+    /><br />
+    <label for="image">Image:</label>
+    <input
+        type="file"
+        id="image"
+        name="image"
+        value="<%= motorbike.image %>"
+    /><br />
+    <button type="submit">Update</button>
     </form>
-</body>
-</html>
+<% }); %> <% } else { %>
+<p>No motorbikes found.</p>
+<% } %>
