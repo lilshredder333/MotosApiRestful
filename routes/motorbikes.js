@@ -1,98 +1,137 @@
-const express = require('express');
-const Moto = require('../models/motorbike'); 
+const express = require("express");
+const Moto = require("../models/motorbike");
 const router = express.Router();
+const axios = require("axios");
 
 module.exports = (upload) => {
+  // Display all motorbikes
+  router.get("/motorbikes", async (req, res) => {
+    try {
+      const motorbikes = await Moto.find();
+      res.render("index", { motorbikes });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  });
 
-    // Display all motorbikes
-    router.get('/', async (req, res) => {
-        try {
-            const response = await axios.get('API_URL'); // Replace with actual API URL
-            const motorbikes = response.data;
-    
-            console.log('Motorbikes from API:', motorbikes); // Ensure this logs correctly
-            res.render('index', { motorbikes }); // Pass motorbikes to view
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error');
-        }
-    });
+  // Show form to add new motorbike
+  router.get("/new", (req, res) => {
+    res.render("new");
+  });
 
+  // Handle new motorbike creation
+  router.post("/", upload, async (req, res) => {
+    try {
+      const {
+        brand,
+        model,
+        year,
+        engineType,
+        horsepower,
+        torque,
+        weight,
+        topSpeed,
+        color,
+        price,
+      } = req.body;
+      const images = req.files.map((file) => file.filename);
+      const newMotorbike = new Moto({
+        brand,
+        model,
+        year,
+        engineType,
+        horsepower,
+        torque,
+        weight,
+        topSpeed,
+        color,
+        price,
+        images,
+      });
+      await newMotorbike.save();
+      res.redirect("/motorbikes");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  });
 
-    // Show form to add new motorbike
-    router.get('/new', (req, res) => {
-        res.render('new');
-    });
+  // Show form to edit a motorbike
+  router.get("/:id/edit", async (req, res) => {
+    try {
+      const motorbike = await Moto.findById(req.params.id);
+      res.render("edit", { motorbike });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  });
 
-    // Handle new motorbike creation
-    router.post('/', upload.single('image'), async (req, res) => {
-        try {
-            const { brand, model, year, engineType, horsepower, torque, weight, topSpeed, color, price } = req.body;
-            const image = req.file ? req.file.filename : '';
-            const newMotorbike = new Moto({ brand, model, year, engineType, horsepower, torque, weight, topSpeed, color, price, image });
-            await newMotorbike.save();
-            res.redirect('/');
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error');
-        }
-    });
+  // Handle motorbike update
+  // Handle motorbike update
+  router.put("/:id", upload, async (req, res) => {
+    try {
+      const {
+        brand,
+        model,
+        year,
+        engineType,
+        horsepower,
+        torque,
+        weight,
+        topSpeed,
+        color,
+        price,
+      } = req.body;
 
-    // Show form to edit a motorbike
-    router.get('/:id/edit', async (req, res) => {
-        try {
-            const motorbike = await Moto.findById(req.params.id);
-            res.render('edit', { motorbike });
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error');
-        }
-    });
+      const motorbike = await Moto.findById(req.params.id);
 
-    // Handle motorbike update
-    router.put('/:id', upload.single('image'), async (req, res) => {
-        try {
-            const { brand, model, year, engineType, horsepower, torque, weight, topSpeed, color, price } = req.body;
-            const motorbike = await Moto.findById(req.params.id);
+      if (!motorbike) {
+        return res.status(404).json({ message: "Motorbike not found" });
+      }
 
-            if (!motorbike) {
-                return res.status(404).json({ message: 'Motorbike not found' });
-            }
+      // Check if new files are uploaded
+      if (req.files && req.files.length > 0) {
+        const newImages = req.files.map((file) => `/uploads/${file.filename}`);
+        motorbike.images = motorbike.images.concat(newImages);
+      }
 
-            if (req.file) {
-                motorbike.image = req.file.filename;
-            }
+      // Update the motorbike details
+      motorbike.brand = brand;
+      motorbike.model = model;
+      motorbike.year = year;
+      motorbike.engineType = engineType;
+      motorbike.horsepower = horsepower;
+      motorbike.torque = torque;
+      motorbike.weight = weight;
+      motorbike.topSpeed = topSpeed;
+      motorbike.color = color;
+      motorbike.price = price;
 
-            motorbike.brand = brand;
-            motorbike.model = model;
-            motorbike.year = year;
-            motorbike.engineType = engineType;
-            motorbike.horsepower = horsepower;
-            motorbike.torque = torque;
-            motorbike.weight = weight;
-            motorbike.topSpeed = topSpeed;
-            motorbike.color = color;
-            motorbike.price = price;
+      await motorbike.save();
+      res.redirect("/motorbikes");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  });
 
-            await motorbike.save();
-            res.redirect('/motorbikes');
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error');
-        }
-    });
+  // Handle motorbike delete
+  router.delete("/:id", async (req, res) => {
+    try {
+      const motorbike = await Moto.findByIdAndDelete(req.params.id);
 
+      if (!motorbike) {
+        return res.status(404).json({ message: "Motorbike not found" });
+      }
 
-    // Handle motorbike delete
-    router.delete('/:id', async (req, res) => {
-        try {
-            await Moto.findByIdAndRemove(req.params.id);
-            res.redirect('/motorbikes');
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error');
-        }
-    });
+      res.redirect("/motorbikes");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  });
 
-    return router;
+  return router;
 };

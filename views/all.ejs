@@ -1,23 +1,76 @@
-<h1 data-aos="zoom-out-down">All motorbikes</h1>
+<h1 class="h1-allmotorbikes" data-aos="zoom-out-down">All motorbikes</h1>
 <section id="main" data-aos="zoom-out-down">
-  <% if (motorbikes && motorbikes.length> 0) { %> <%
-  motorbikes.forEach(motorbike=> { %>
-  <div
-    data-aos="zoom-in"
-    class="moto-container"
-    style="background-image: url('/images/<%= motorbike.image %>')"
-  >
-    <h2><%= motorbike.brand %></h2>
-
-    <div class="small-info">
-      <p>Model: <%= motorbike.model %></p>
-      <p class="mobile-hide">Year: <%= motorbike.year %></p>
-      <p class="mobile-hide">Top Speed: <%= motorbike.topSpeed %></p>
+  <% if (motorbikes && motorbikes.length > 0) { %> <%
+  motorbikes.forEach(motorbike => { %>
+  <div class="card" onclick="showDetails('<%= motorbike._id %>')">
+    <div class="wrapper">
+      <img src="/images/<%= motorbike.images[0] %>" class="cover-image" />
     </div>
-
-    <div class="overlay"></div>
+    <div class="title">
+      <h2><%= motorbike.brand %></h2>
+      <h3><%= motorbike.model %></h3>
+    </div>
+    <img src="/images/<%= motorbike.images[1] %>" class="character" />
+  </div>
+  <div class="overlay" id="<%= motorbike._id %>">
+    <div class="showDetails">
+      <h2><%= motorbike.brand %></h2>
+      <h3><%= motorbike.model %></h3>
+      <div class="miniDetails">
+        <p>Engine Type: <%= motorbike.engineType %></p>
+        <p>Horsepower: <%= motorbike.horsepower %></p>
+        <p>Torque: <%= motorbike.torque %></p>
+        <p>Weight: <%= motorbike.weight %></p>
+        <p>Color: <%= motorbike.color %></p>
+        <p>Price: <%= motorbike.price %></p>
+      </div>
+      <img
+        class="mini-image"
+        src="/images/<%= motorbike.images[0] %>"
+        alt="<%= motorbike.model %>"
+      />
+      <div
+        class="close-container"
+        onclick="showDetails('<%= motorbike._id %>')"
+      >
+        <div class="leftright"></div>
+        <div class="rightleft"></div>
+      </div>
+    </div>
   </div>
   <% }); %> <% } else { %>
   <p>No motorbikes found.</p>
   <% } %>
 </section>
+<script>
+  function showDetails(id) {
+    let allDetails = document.querySelectorAll(".overlay");
+    allDetails.forEach(function (detail) {
+      if (detail.id !== id) {
+        detail.classList.remove("visible");
+      }
+    });
+
+    let details = document.getElementById(id);
+    details.classList.toggle("visible");
+
+    if (details.classList.contains("visible")) {
+      centerDetails(details.querySelector(".showDetails"));
+    }
+  }
+
+  function centerDetails(element) {
+    let scrollY = window.scrollY || window.pageYOffset;
+    let windowHeight = window.innerHeight;
+    let elementHeight = element.offsetHeight;
+    let topPosition = scrollY + windowHeight / 2 - elementHeight / 2;
+    element.style.top = `${topPosition}px`;
+  }
+
+  window.addEventListener("resize", function () {
+    let visibleDetail = document.querySelector(".overlay.visible .showDetails");
+    if (visibleDetail) {
+      centerDetails(visibleDetail);
+    }
+  });
+</script>

@@ -110,63 +110,138 @@
   }
 }
 
-/* MOTO CONTAINER */
+/* MOTO CONTAINER - CARDS*/
 
-@media (max-width: 450px) {
+@media (max-width: 1024px) {
   .moto-container {
-    padding: 40px;
-    border-radius: 50px;
-    margin: 20px;
-    display: inline;
-    height: 200px;
-    width: 250px;
-  }
-
-  .clear-img {
-    width: 70%;
-    position: relative;
-    top: -90%;
-    left: 50%;
-    clip-path: circle();
+    width: 400px;
+    height: 280px;
   }
 
   .overlay {
-    height: 100px;
-    width: 250px;
-    z-index: 1;
-    position: relative;
-    bottom: 29px;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    background-image: linear-gradient(to bottom, transparent 10%, black);
+    width: 400px;
+    height: 160px;
+    left: -20px;
   }
-
-  /* CARDS INFO */
 
   .moto-container h2 {
-    color: white;
-    position: relative;
-    bottom: -95px;
-    z-index: 9;
-    font-size: 20px;
+    font-size: 25px;
   }
 
-  .small-info {
-    display: flex;
-    flex-direction: row;
-    padding-top: 5px;
-    margin-bottom: 35px;
+  .clear-img {
+    top: -80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .moto-container {
+    width: 300px;
+    height: 210px;
+  }
+
+  .overlay {
+    width: 300px;
+    height: 120px;
+    left: -10px;
+  }
+
+  .moto-container h2 {
+    font-size: 20px;
+    bottom: -160px;
   }
 
   .moto-container p {
-    color: white;
-    position: relative;
-    bottom: -90px;
-    z-index: 9;
-    font-size: 13px;
+    bottom: -160px;
   }
 
-  .moto-container .mobile-hide{
+  .clear-img {
+    top: -70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .moto-container {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .overlay {
+    width: 100%;
+    height: auto;
+    left: 0;
+    bottom: 0;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+
+  .moto-container h2 {
+    font-size: 18px;
+    bottom: 0;
+  }
+
+  .moto-container p {
+    bottom: 0;
+  }
+
+  .clear-img {
+    width: 100%;
+    top: 0;
+    transform: none;
+  }
+
+  .small-info {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+  /* Show details responsive */
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+  }
+
+  .mini-image {
+    width: 180px;
+    top: 80px;
+  }
+
+  .form-container {
+    flex-direction: column;
+  }
+
+  form input #new-images {
+    width: 300px;
+  }
+
+  .form-container .form,
+  .add-motorbike {
+    width: 250px;
+    height: auto;
+  }
+
+  .add-motorbike .pretty-form {
+    width: 288px;
+    height: auto;
+    margin: 10px;
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 768px){
+  .add-motorbike .pretty-form {
+    width: 488px;
   }
 }

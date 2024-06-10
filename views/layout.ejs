@@ -10,23 +10,38 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     <!-- ANIMATIONS :) -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <title><%= title %></title>
   </head>
 
-  <body>
+  <body id="body" onscroll="colorNav()">
     <!-- navbar partial -->
     <%- include('partials/navbar') %>
-    <div class="content">
-      <%- body %>
-      <!-- Placeholder for page-specific content -->
-    </div>
+    <div class="content"><%- body %></div>
     <!-- footer partial -->
     <%- include('partials/footer') %>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init();
+    </script>
+    <script>
+      window.onscroll = function () {
+        colorNav();
+      };
+
+      function colorNav() {
+        let navbar = document.getElementById("navbar");
+        if (
+          document.body.scrollTop > 50 ||
+          document.documentElement.scrollTop > 50
+        ) {
+          navbar.style.backgroundColor = "#000000";
+        } else {
+          navbar.style.backgroundColor = "transparent";
+        }
+      }
     </script>
   </body>
 </html>

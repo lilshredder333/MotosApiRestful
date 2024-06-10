@@ -10,10 +10,10 @@ const motorbikeSchema = mongoose.Schema({
         type: String,
         required: true
     }, 
-    image: {
+    images: [{
         type: String,
         required: true
-    },
+    }],
     year: {
         type: Number,
         required: true
@@ -45,6 +45,9 @@ const motorbikeSchema = mongoose.Schema({
     price: {
         type: Number,
         required: true
+    }, 
+    pilot: {
+        type: String, 
     } 
 });
 

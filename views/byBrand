@@ -1,6 +1,6 @@
-<p>Engine Type: <%= motorbike.engineType %></p>
+    <p>Engine Type: <%= motorbike.engineType %></p>
     <p>Horsepower: <%= motorbike.horsepower %></p>
     <p>Torque: <%= motorbike.torque %></p>
     <p>Weight: <%= motorbike.weight %></p>
     <p>Color: <%= motorbike.color %></p>
-    <p>Price: <%= motorbike.price %></p>
+    <p>Price: <%= motorbike.price %></p>    
